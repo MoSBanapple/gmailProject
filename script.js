@@ -1,6 +1,7 @@
 
 var API_KEY = 'AIzaSyB2mORxtpWlYI8Tnllco7mqlBLfLO4acxE';
 var CLIENT_ID = '336583375329-k44sptphugo55i5eim3pl83ahbvajo38.apps.googleusercontent.com';
+var SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
