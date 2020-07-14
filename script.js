@@ -31,23 +31,6 @@ function onSignIn(googleUser) {
 	  scope: 'https://www.googleapis.com/auth/gmail.modify',
 	  immediate: true
   }, getEmailsClient);
-  /*
-  var options = new gapi.auth2.SigninOptionsBuilder(
-        {'scope': 'email https://www.googleapis.com/auth/gmail.modify'});
-
-
-	googleUser = auth2.currentUser.get();
-	googleUser.grant(options).then(
-    function(success){
-      //console.log(JSON.stringify({message: "success", value: success}));
-	  //console.log(success.wc.access_token);
-	  authToken = success.wc.access_token;
-	  getEmails();
-    },
-    function(fail){
-      alert(JSON.stringify({message: "fail", value: fail}));
-    });
-*/
 
 }
 
@@ -72,69 +55,8 @@ function displayInbox(){
   });
 }
 
-function getMessageClient(message){
-	console.log(message);
-}
 
-function getEmails(){
-  const url = "https://www.googleapis.com/gmail/v1/users/" + userId + "/messages?key=" + API_KEY;
-  const http = new XMLHttpRequest();
-  
-  http.open("GET", url);
-  http.setRequestHeader("Authorization", "Bearer " + authToken);
-  http.send();
-  
-  http.onreadystatechange = (e) => {
-	  responseText = http.responseText;
-	  parsedResponse = JSON.parse(responseText);
-	  //console.log(parsedResponse);
-	  //console.log(parsedResponse.messages[0]);
-	  let messages = parsedResponse.messages;
-	  for (let i = 0; i < messages.length; i++){
-		  getTargetMail(messages[i].id);
-	  }
-  }
-  
 
-}
-
-function getTargetMail(mailId){
-
-	//emailList[mailId] = "yeah";
-	let url = "https://www.googleapis.com/gmail/v1/users/" + userId + "/messages/" + mailId;
-	url += "?key=" + API_KEY;
-	const http = new XMLHttpRequest();
-	http.open("GET", url);
-	http.setRequestHeader("Authorization", "Bearer " + authToken);
-	http.send();
-	http.onreadystatechange = (e) => {
-	  responseText = http.responseText;
-	  try{
-	  parsedResponse = JSON.parse(responseText);
-	  
-	  addToEmailList(parsedResponse);
-	  } catch (err){
-	  }
-	  /*
-	  console.log(parsedResponse);
-	  let data = parsedResponse.payload.body.data;
-	  console.log(atob(data.replace(/-/g, '+').replace(/_/g, '/')));
-	  subject = getSubject(parsedResponse.payload.headers);
-	  if (emailList.hasOwnProperty(mailId)){
-		  return;
-	  }
-	  emailList[mailId] = subject;
-	  addToEmailList(subject);
-	  */
-  }
-  /*
-  var request = gapi.client.gmail.users.messages.get({
-    'userId': userId,
-    'id': mailId
-  });
-  request.execute();
-  */
-}
 
 function addToEmailList(emailData){
 	if (emailList.hasOwnProperty(emailData.id)){
@@ -182,8 +104,3 @@ function signOut() {
   emailList = {};
 }
 
-
-
-console.log("ya")
-console.log("lol")
-console.log("ey")

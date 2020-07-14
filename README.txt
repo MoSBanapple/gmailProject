@@ -1,0 +1,1 @@
+Simple webpage that, given permission, accesses and displays the first few emails in a gmail user's inbox. Can be accessed at https://mosbanapple.github.io/gmailProject/.
